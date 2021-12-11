@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import { quoteTotal } from "../helpers";
 
 const Form = (props) => {
-	const { value, saveValue, deadline, saveDeadline, saveTotal } = props;
+	const { value, saveValue, deadline, saveDeadline, saveTotal, saveLoading } =
+		props;
 
 	const [error, saveError] = useState(false);
 
@@ -15,14 +16,21 @@ const Form = (props) => {
 
 		saveError(false);
 
-		const total = quoteTotal(value, deadline);
-		saveTotal(total);
+		// Show spinner
+		saveLoading(true);
+
+		setTimeout(() => {
+			const total = quoteTotal(value, deadline);
+			saveTotal(total);
+
+			saveLoading(false);
+		}, 1000);
 	};
 
 	return (
 		<Fragment>
 			<form onSubmit={loanQuote}>
-				<p>Loan value</p>
+				<p>Value</p>
 				<input
 					type="number"
 					placeholder="Value"
@@ -40,7 +48,11 @@ const Form = (props) => {
 					Quote <i className="bi bi-calculator-fill"></i>
 				</button>
 			</form>
-			{error ? <p>All fields are required</p> : null}
+			{error ? (
+				<div>
+					<p>All fields are required</p>
+				</div>
+			) : null}
 		</Fragment>
 	);
 };
