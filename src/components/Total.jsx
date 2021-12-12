@@ -1,11 +1,23 @@
 import React from "react";
 
 const Total = ({ total, value, deadline }) => (
-	<div>
-		<p>Total: {total.toFixed(2)}</p>
-		<p>Deadline: {deadline}</p>
-		<p>Pago mensual: {(total / deadline).toFixed(2)}</p>
-		<p>Value: {value}</p>
+	<div className="info-result">
+		<p className="info-result__title">Summary</p>
+		<p className="info-result__text">
+			Value: <span className="info-result__span">$ {value}</span>
+		</p>
+		<p className="info-result__text">
+			Deadline: <span className="info-result__span">{deadline} months</span>
+		</p>
+		<p className="info-result__text">
+			Pago mensual:{" "}
+			<span className="info-result__span">
+				$ {(total / deadline).toFixed(2)}
+			</span>
+		</p>
+		<p className="info-result__text">
+			Total: <span className="info-result__span">$ {total.toFixed(2)}</span>
+		</p>
 	</div>
 );
 

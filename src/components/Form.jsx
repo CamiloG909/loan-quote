@@ -1,20 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { quoteTotal } from "../helpers";
+import { toast, Toaster } from "react-hot-toast";
 
 const Form = (props) => {
 	const { value, saveValue, deadline, saveDeadline, saveTotal, saveLoading } =
 		props;
 
-	const [error, saveError] = useState(false);
-
 	const loanQuote = (e) => {
 		e.preventDefault();
 
 		if (value === 0 || deadline === 0) {
-			return saveError(true);
+			return toast.error("Please, fill all fields");
 		}
-
-		saveError(false);
 
 		// Show spinner
 		saveLoading(true);
@@ -24,36 +21,47 @@ const Form = (props) => {
 			saveTotal(total);
 
 			saveLoading(false);
-		}, 1000);
+			toast.success("Successfully");
+		}, 500);
 	};
 
 	return (
-		<Fragment>
-			<form onSubmit={loanQuote}>
-				<p>Value</p>
+		<section className="container-form">
+			<form className="form" onSubmit={loanQuote}>
+				<p className="form__subtitle">Value</p>
 				<input
+					className="form__input"
 					type="number"
-					placeholder="Value"
+					placeholder="Type value here..."
 					onChange={(e) => saveValue(Number(e.target.value))}
 				/>
-				<p>Deadline to pay</p>
-				<select onChange={(e) => saveDeadline(Number(e.target.value))}>
+				<p className="form__subtitle">Deadline to pay</p>
+				<select
+					className="form__select"
+					onChange={(e) => saveDeadline(Number(e.target.value))}
+				>
 					<option value="">Select option</option>
 					<option value="3">3 months</option>
 					<option value="6">6 month</option>
 					<option value="12">12 months</option>
 					<option value="24">24 months</option>
 				</select>
-				<button>
+				<button className="form__btn">
 					Quote <i className="bi bi-calculator-fill"></i>
 				</button>
 			</form>
-			{error ? (
-				<div>
-					<p>All fields are required</p>
-				</div>
-			) : null}
-		</Fragment>
+			<Toaster
+				position="top-right"
+				toastOptions={{
+					duration: 1300,
+					style: {
+						background: "#363636",
+						color: "#fff",
+						fontSize: "1.5rem",
+					},
+				}}
+			/>
+		</section>
 	);
 };
 

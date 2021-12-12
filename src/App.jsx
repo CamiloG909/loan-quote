@@ -34,7 +34,7 @@ function App() {
 					saveLoading={saveLoading}
 				/>
 
-				{component}
+				<section className="container-info">{component}</section>
 			</main>
 		</Fragment>
 	);
