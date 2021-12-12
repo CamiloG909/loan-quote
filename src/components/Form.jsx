@@ -51,7 +51,7 @@ const Form = (props) => {
 				</button>
 			</form>
 			<Toaster
-				position="top-right"
+				position="bottom-center"
 				toastOptions={{
 					duration: 1300,
 					style: {
