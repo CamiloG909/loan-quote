@@ -10,8 +10,7 @@ const Total = ({ total, value, deadline }) => (
 			Deadline: <span className="info-result__span">{deadline} months</span>
 		</p>
 		<p className="info-result__text">
-			Pago mensual:{" "}
-			<span className="info-result__span">
+			Monthly payment: <span className="info-result__span">
 				$ {(total / deadline).toFixed(2)}
 			</span>
 		</p>
